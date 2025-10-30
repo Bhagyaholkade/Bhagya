@@ -1,0 +1,25 @@
+INSTRUCTIONS TO ADD YOUR PHOTO:
+================================
+
+1. Save your photo in this project folder
+2. Name it: profile.jpg
+   (or any name you prefer like: bhagya.jpg, photo.jpg, etc.)
+
+3. If you use a different name, update line 177 in index.html:
+   Change: <img src="profile.jpg" ...>
+   To: <img src="YOUR_PHOTO_NAME.jpg" ...>
+
+4. Supported formats: .jpg, .jpeg, .png, .webp
+
+5. Recommended photo specs:
+   - Aspect ratio: 3:4 (portrait)
+   - Resolution: At least 800x1000 pixels
+   - File size: Under 2MB for fast loading
+
+Your photo will appear in the About section with:
+- Beautiful animated frame
+- Hover effects
+- Gradient decorations
+- Professional styling
+
+The photo you showed me (with the yellow neon background) will look amazing! 🎨
