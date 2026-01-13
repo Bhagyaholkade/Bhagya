@@ -2,6 +2,53 @@
 
 A modern, animated portfolio website showcasing my work as a Full Stack Developer.
 
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+      text-align: left;
+    }
+
+    h1, h2 {
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    h1, h2 {
+      font-size: 1.5em;
+      color: #333;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: #fff;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
+
 ## Features
 
 - 🎨 Modern gradient design with smooth animations

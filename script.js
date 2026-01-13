@@ -6,9 +6,9 @@ window.addEventListener('load', () => {
     const percentage = document.getElementById('progressPercent');
     const loadingStatus = document.getElementById('loadingStatus');
     const body = document.body;
-    
+
     body.classList.add('loading');
-    
+
     const statuses = [
         'Initializing',
         'Loading modules',
@@ -16,37 +16,37 @@ window.addEventListener('load', () => {
         'Building portfolio',
         'Almost ready'
     ];
-    
+
     let count = 0;
     let statusIndex = 0;
     const duration = 4500;
     const increment = 100 / (duration / 50);
-    
+
     const counter = setInterval(() => {
         count += increment;
-        
+
         if (count >= 100) {
             count = 100;
             clearInterval(counter);
             loadingStatus.textContent = 'Complete!';
-            
+
             setTimeout(() => {
                 preloader.classList.add('fade-out');
                 body.classList.remove('loading');
-                
+
                 setTimeout(() => {
                     preloader.style.display = 'none';
                 }, 800);
             }, 300);
         }
-        
+
         // Update status text
         const newStatusIndex = Math.floor(count / 20);
         if (newStatusIndex !== statusIndex && newStatusIndex < statuses.length) {
             statusIndex = newStatusIndex;
             loadingStatus.textContent = statuses[statusIndex];
         }
-        
+
         progressFill.style.width = count + '%';
         progressGlow.style.width = count + '%';
         percentage.textContent = Math.floor(count) + '%';
@@ -109,12 +109,14 @@ const navLinks = document.querySelectorAll('.nav-link');
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
 });
 
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
     });
 });
 
@@ -148,7 +150,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('scroll', () => {
     let current = '';
     const sections = document.querySelectorAll('section');
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -169,7 +171,7 @@ window.addEventListener('scroll', () => {
 function animateCounter(element, target, duration = 2000) {
     let start = 0;
     const increment = target / (duration / 16);
-    
+
     const timer = setInterval(() => {
         start += increment;
         if (start >= target) {
@@ -207,9 +209,9 @@ if (filterBtns.length > 0) {
             filterBtns.forEach(b => b.classList.remove('active'));
             // Add active class to clicked button
             btn.classList.add('active');
-            
+
             const filter = btn.getAttribute('data-filter');
-            
+
             projectCards.forEach(card => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     card.style.display = 'block';
@@ -285,12 +287,12 @@ class Particle {
             const dx = mouse.x - this.x;
             const dy = mouse.y - this.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            
+
             if (distance < mouse.radius) {
                 const force = (mouse.radius - distance) / mouse.radius;
                 const directionX = dx / distance;
                 const directionY = dy / distance;
-                
+
                 this.x -= directionX * force * 3;
                 this.y -= directionY * force * 3;
             }
@@ -358,12 +360,12 @@ function connectParticles() {
 
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
     particlesArray.forEach(particle => {
         particle.update();
         particle.draw();
     });
-    
+
     connectParticles();
     requestAnimationFrame(animateParticles);
 }
@@ -382,7 +384,7 @@ window.addEventListener('resize', () => {
 document.addEventListener('mousemove', (e) => {
     const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
     const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-    
+
     const heroImage = document.querySelector('.hero-image');
     if (heroImage) {
         heroImage.style.transform = `translate(${moveX}px, ${moveY}px)`;
@@ -413,7 +415,7 @@ document.querySelectorAll('.skill-category').forEach(category => {
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
-    
+
     function type() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
@@ -421,7 +423,7 @@ function typeWriter(element, text, speed = 100) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
@@ -469,15 +471,15 @@ document.addEventListener('mousemove', (e) => {
             top: ${e.clientY}px;
             animation: fadeOut 0.5s ease forwards;
         `;
-        
+
         document.body.appendChild(trail);
         cursorTrails.push(trail);
-        
+
         if (cursorTrails.length > maxTrails) {
             const oldTrail = cursorTrails.shift();
             oldTrail.remove();
         }
-        
+
         setTimeout(() => {
             trail.remove();
         }, 500);
@@ -508,7 +510,7 @@ if (seeMoreBtn) {
     seeMoreBtn.addEventListener('click', () => {
         projectsGrid.classList.toggle('expanded');
         seeMoreBtn.classList.toggle('active');
-        
+
         const btnText = seeMoreBtn.querySelector('span');
         if (projectsGrid.classList.contains('expanded')) {
             btnText.textContent = 'See Less Projects';
@@ -525,39 +527,39 @@ if (seeMoreBtn) {
 const matrixCanvas = document.getElementById('matrixCanvas');
 if (matrixCanvas) {
     const ctx = matrixCanvas.getContext('2d');
-    
+
     matrixCanvas.width = window.innerWidth;
     matrixCanvas.height = window.innerHeight;
-    
+
     const matrix = "01";
     const fontSize = 14;
     const columns = matrixCanvas.width / fontSize;
     const drops = [];
-    
+
     for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100;
     }
-    
+
     function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-        
+
         ctx.fillStyle = '#6366f1';
         ctx.font = fontSize + 'px monospace';
-        
+
         for (let i = 0; i < drops.length; i++) {
             const text = matrix[Math.floor(Math.random() * matrix.length)];
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
+
             if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
                 drops[i] = 0;
             }
             drops[i]++;
         }
     }
-    
+
     setInterval(drawMatrix, 50);
-    
+
     window.addEventListener('resize', () => {
         matrixCanvas.width = window.innerWidth;
         matrixCanvas.height = window.innerHeight;
@@ -571,13 +573,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 100) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -587,7 +589,7 @@ const allNavLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
     let current = '';
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -595,7 +597,7 @@ window.addEventListener('scroll', () => {
             current = section.getAttribute('id');
         }
     });
-    
+
     allNavLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href').slice(1) === current) {
