@@ -393,65 +393,146 @@
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
-    
+
     .featured-project {
         grid-column: span 1;
     }
-    
+
+    /* Reduced padding for mobile */
     .project-content {
+        padding: 1.2rem;
+    }
+
+    .featured-project .project-content {
         padding: 1.5rem;
     }
-    
-    .featured-project .project-content {
-        padding: 2rem;
-    }
-    
+
+    /* Smaller headings */
     .project-header h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+
+    .featured-project .project-header h3 {
         font-size: 1.3rem;
     }
-    
-    .featured-project .project-header h3 {
-        font-size: 1.5rem;
-    }
-    
+
+    /* Reduced image heights */
     .project-image {
-        height: 180px;
+        height: 140px;
     }
-    
+
     .featured-project .project-image {
-        height: 200px;
+        height: 160px;
     }
-    
+
     .project-overlay {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
-    
+
+    /* Hide descriptions in mobile */
+    .project-highlight {
+        display: none !important;
+    }
+
+    /* Hide project details in mobile */
+    .project-details {
+        display: none !important;
+    }
+
+
+    /* Compact tags */
+    .project-tags {
+        gap: 0.5rem;
+        margin: 0.8rem 0;
+    }
+
+    .project-tags span {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.78rem;
+    }
+
+    /* Compact category badge */
+    .project-category {
+        padding: 0.25rem 0.7rem;
+        font-size: 0.7rem;
+    }
+
     .filter-btn {
         padding: 0.7rem 1.5rem;
         font-size: 0.85rem;
     }
-    
+
+    /* Reduced link spacing */
     .project-links {
         flex-direction: column;
+        gap: 0.6rem;
+        margin-top: 1rem;
     }
-    
+
+    .project-link {
+        padding: 0.8rem 1.1rem;
+        font-size: 0.85rem;
+    }
+
     .featured-project .project-details {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
+    /* Even more compact for small phones */
+    .projects-grid {
+        gap: 1.2rem;
+    }
+
+    .project-content {
+        padding: 1rem;
+    }
+
+    .featured-project .project-content {
+        padding: 1.2rem;
+    }
+
     .project-badge {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.8rem;
+        font-size: 0.65rem;
+        padding: 0.35rem 0.7rem;
     }
-    
-    .project-details h4 {
-        font-size: 0.95rem;
+
+    .project-header h3 {
+        font-size: 1rem;
     }
-    
-    .project-details ul li {
-        font-size: 0.85rem;
+
+    .featured-project .project-header h3 {
+        font-size: 1.15rem;
+    }
+
+    .project-image {
+        height: 120px;
+    }
+
+    .featured-project .project-image {
+        height: 140px;
+    }
+
+    /* Keep descriptions hidden on small phones */
+    .project-highlight {
+        display: none !important;
+    }
+
+    .project-details {
+        display: none !important;
+    }
+
+    .project-tags span {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+    }
+
+    .project-link {
+        padding: 0.7rem 1rem;
+        font-size: 0.8rem;
     }
 }

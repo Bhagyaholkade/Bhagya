@@ -1,11 +1,39 @@
-// 3D Preloader with Progress
-window.addEventListener('load', () => {
+// 3D Preloader with Progress - Run IMMEDIATELY
+console.log('🚀 Script.js loaded!');
+
+(function startLoader() {
+    console.log('🔄 Starting loader immediately...');
+
+    // Get elements
     const preloader = document.getElementById('preloader');
     const progressFill = document.querySelector('.progress-fill');
     const progressGlow = document.querySelector('.progress-glow');
     const percentage = document.getElementById('progressPercent');
     const loadingStatus = document.getElementById('loadingStatus');
     const body = document.body;
+
+    // Debug: Log what we found
+    console.log('📦 Elements:', {
+        preloader: !!preloader,
+        progressFill: !!progressFill,
+        progressGlow: !!progressGlow,
+        percentage: !!percentage,
+        loadingStatus: !!loadingStatus
+    });
+
+    // If elements don't exist yet, wait for DOM
+    if (!preloader || !progressFill || !progressGlow || !percentage || !loadingStatus) {
+        console.log('⏳ Elements not ready, waiting for DOM...');
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startLoader);
+            return;
+        } else {
+            console.error('❌ Preloader elements not found!');
+            return;
+        }
+    }
+
+    console.log('✅ All elements found! Starting animation...');
 
     body.classList.add('loading');
 
@@ -19,9 +47,12 @@ window.addEventListener('load', () => {
 
     let count = 0;
     let statusIndex = 0;
-    const duration = 4500;
+    const duration = 3000;
     const increment = 100 / (duration / 50);
 
+    console.log('⚡ Progress animation started!');
+
+    // Start the progress
     const counter = setInterval(() => {
         count += increment;
 
@@ -29,6 +60,7 @@ window.addEventListener('load', () => {
             count = 100;
             clearInterval(counter);
             loadingStatus.textContent = 'Complete!';
+            console.log('✨ Loading complete!');
 
             setTimeout(() => {
                 preloader.classList.add('fade-out');
@@ -36,6 +68,7 @@ window.addEventListener('load', () => {
 
                 setTimeout(() => {
                     preloader.style.display = 'none';
+                    console.log('👋 Preloader hidden');
                 }, 800);
             }, 300);
         }
@@ -47,11 +80,12 @@ window.addEventListener('load', () => {
             loadingStatus.textContent = statuses[statusIndex];
         }
 
+        // Update progress bar
         progressFill.style.width = count + '%';
         progressGlow.style.width = count + '%';
         percentage.textContent = Math.floor(count) + '%';
     }, 50);
-});
+})();
 
 // ROG-Style Parallax Motion Effect
 let mouseX = 0;

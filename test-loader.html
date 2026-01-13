@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Loader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a1a;
+            color: white;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .preloader-content {
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .loader-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 100%;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(102, 126, 234, 0.5);
+            filter: blur(10px);
+            transition: width 0.1s linear;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            color: #999;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.8s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <h1 class="loader-title">BHAGYA</h1>
+            <p style="margin-bottom: 2rem; color: #667eea;">Software Developer & Frontend Developer</p>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                    <div class="progress-glow"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="loadingStatus">Initializing</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 2rem; text-align: center;">
+        <h1>Main Content</h1>
+        <p>If you see this, the loader has finished!</p>
+    </div>
+
+    <script>
+        console.log('Script loaded!');
+
+        // Start immediately - don't wait for anything
+        (function() {
+            console.log('Starting loader immediately...');
+
+            const preloader = document.getElementById('preloader');
+            const progressFill = document.querySelector('.progress-fill');
+            const progressGlow = document.querySelector('.progress-glow');
+            const percentage = document.getElementById('progressPercent');
+            const loadingStatus = document.getElementById('loadingStatus');
+
+            // Check if elements exist
+            console.log('Elements found:', {
+                preloader: !!preloader,
+                progressFill: !!progressFill,
+                progressGlow: !!progressGlow,
+                percentage: !!percentage,
+                loadingStatus: !!loadingStatus
+            });
+
+            if (!preloader || !progressFill || !progressGlow || !percentage || !loadingStatus) {
+                console.error('Preloader elements not found!');
+                return;
+            }
+
+            const statuses = [
+                'Initializing',
+                'Loading modules',
+                'Compiling assets',
+                'Building portfolio',
+                'Almost ready'
+            ];
+
+            let count = 0;
+            let statusIndex = 0;
+            const duration = 3000;
+            const increment = 100 / (duration / 50);
+
+            console.log('Starting progress animation...');
+
+            const counter = setInterval(() => {
+                count += increment;
+
+                if (count >= 100) {
+                    count = 100;
+                    clearInterval(counter);
+                    loadingStatus.textContent = 'Complete!';
+                    console.log('Loading complete!');
+
+                    setTimeout(() => {
+                        preloader.classList.add('fade-out');
+
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                            console.log('Preloader hidden');
+                        }, 800);
+                    }, 300);
+                }
+
+                // Update status text
+                const newStatusIndex = Math.floor(count / 20);
+                if (newStatusIndex !== statusIndex && newStatusIndex < statuses.length) {
+                    statusIndex = newStatusIndex;
+                    loadingStatus.textContent = statuses[statusIndex];
+                    console.log('Status:', statuses[statusIndex], count + '%');
+                }
+
+                progressFill.style.width = count + '%';
+                progressGlow.style.width = count + '%';
+                percentage.textContent = Math.floor(count) + '%';
+            }, 50);
+        })();
+    </script>
+</body>
+</html>
